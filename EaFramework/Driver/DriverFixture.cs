@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using EaFramework.Config;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Safari;
@@ -10,18 +11,21 @@ using System.Threading.Tasks;
 
 namespace EaFramework.Driver
 {
-    public class DriverFixture
+    public class DriverFixture : IDriverFixture, IDisposable
     {
+        private readonly TestSettings _testSettings;
+
         public IWebDriver Driver { get; }
-        public DriverFixture(BrowserType browserType)
+        public DriverFixture(TestSettings testSettings)
         {
-            Driver = GetWebDriver(browserType);
-            Driver.Navigate().GoToUrl("http://localhost:33084/");
+            _testSettings = testSettings;
+            Driver = GetWebDriver();
+            Driver.Navigate().GoToUrl(_testSettings.ApplicationUrl);
         }
 
-        private IWebDriver GetWebDriver(BrowserType browserType)
+        private IWebDriver GetWebDriver()
         {
-            return browserType switch
+            return _testSettings.BrowserType switch
             {
                 BrowserType.Chrome => new ChromeDriver(),
                 BrowserType.Firefox => new FirefoxDriver(),
@@ -30,6 +34,10 @@ namespace EaFramework.Driver
             };
         }
 
+        public void Dispose()
+        {
+            Driver.Quit();
+        }
     }
 
     public enum BrowserType
