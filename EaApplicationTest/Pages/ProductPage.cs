@@ -1,4 +1,5 @@
 ﻿using EaFramework.Driver;
+using EaFramework.Extensions;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace EaApplicationTest.Pages
             _driverFixture = driverFixture;
         }
 
-        private IWebElement txtName => _driverFixture.Driver.FindElement(By.Name("Names"));
+        private IWebElement txtName => _driverFixture.Driver.FindElement(By.Name("Name"));
         private IWebElement txtDescription => _driverFixture.Driver.FindElement(By.Id("Description"));
         private IWebElement txtPrice => _driverFixture.Driver.FindElement(By.Id("Price"));
         private IWebElement ddlProductType => _driverFixture.Driver.FindElement(By.Id("ProductType"));
@@ -30,7 +31,7 @@ namespace EaApplicationTest.Pages
             txtName.SendKeys(name);
             txtDescription.SendKeys(description);
             txtPrice.SendKeys(price);
-            ddlProductType.SendKeys(productType);
+            ddlProductType.SelectDropDownByText(productType);
             btnCreate.Click();
         }
 
