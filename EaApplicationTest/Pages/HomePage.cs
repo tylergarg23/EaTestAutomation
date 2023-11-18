@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace EaApplicationTest.Pages
 {
     internal class HomePage
-    {
+    {   
         private readonly IDriverFixture _driverFixture;
 
         public HomePage(IDriverFixture driverFixture)

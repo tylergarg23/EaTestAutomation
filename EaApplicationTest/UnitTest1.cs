@@ -36,7 +36,9 @@ namespace EaApplicationTest
 
             //Create Product
             productPage.ClickCreateButton();
-            productPage.CreateProduct("FirstProduct","description of product","200","MONITOR");
+            productPage.CreateProduct("FirstProduct6","description of product6","600","MONITOR");
+
+            productPage.PerformClickOnSpecialValue("FirstProduct6", "Details");
 
         }
 

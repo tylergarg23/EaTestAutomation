@@ -23,6 +23,7 @@ namespace EaApplicationTest.Pages
         private IWebElement ddlProductType => _driverFixture.Driver.FindElement(By.Id("ProductType"));
         private IWebElement lnkCreate => _driverFixture.Driver.FindElement(By.LinkText("Create"));
         private IWebElement btnCreate => _driverFixture.Driver.FindElement(By.Id("Create"));
+        private IWebElement tblList => _driverFixture.Driver.FindElement(By.CssSelector(".table"));
 
         public void ClickCreateButton() => lnkCreate.Click();
 
@@ -33,6 +34,11 @@ namespace EaApplicationTest.Pages
             txtPrice.SendKeys(price);
             ddlProductType.SelectDropDownByText(productType);
             btnCreate.Click();
+        }
+
+        public void PerformClickOnSpecialValue(string name, string operation)
+        {
+            tblList.PerformActionOnCell("5","Name",name,operation);
         }
 
     }
